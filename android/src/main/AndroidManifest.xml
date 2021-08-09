@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="dev.android.accessibility_service">
+
+    <application>
+        <service
+            android:name=".TestService"
+            android:enabled="true"
+            android:exported="true"></service>
+        <service
+            android:name=".MyService"
+            android:enabled="true"
+            android:exported="true"
+            android:label="accessService"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+        </service>
+    </application>
+
+</manifest>
