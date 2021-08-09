@@ -1,18 +1,11 @@
 # accessibility_service
 
-A new flutter plugin project.
-
+Well it's a plugin for interacting with Accessibility Service in Android. This will probably crash if called in iOS device.
 ## Getting Started
+There are only 5 functions implemented:
+- `serviceStatus`: check if the service is online.
+- `requestToStartService`: open an intent to Accessibility Settings, that's all
+- `stopService`: stop the Accessibility service.
+- `setCallbackOnAccessibilityEvent`: set a callback when an `AccessibiltyEvent` is received. Only static or top-level callback is accepted. Please call this before starting the service.
+- `setupFilterAccessibilityEvents`: set a filter to choose which kind of events we want to react.
 
-This project is a starting point for a Flutter
-[plug-in package](https://flutter.dev/developing-packages/),
-a specialized package that includes platform-specific implementation code for
-Android and/or iOS.
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-
-The plugin project was generated without specifying the `--platforms` flag, no platforms are currently supported.
-To add platforms, run `flutter create -t plugin --platforms <platforms> .` under the same
-directory. You can also find a detailed instruction on how to add platforms in the `pubspec.yaml` at https://flutter.dev/docs/development/packages-and-plugins/developing-packages#plugin-platforms.

@@ -1,5 +1,5 @@
 name: accessibility_service
-description: A new flutter plugin project.
+description: A plugin for accessing Accessibility Service event.
 version: 0.0.1
 homepage:
 
