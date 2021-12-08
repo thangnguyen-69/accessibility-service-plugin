@@ -1,6 +1,7 @@
 package dev.android.accessibility_service
 
 import android.Manifest
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -15,7 +16,7 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
-
+ 
 /** AccessibilityServicePlugin */
 class AccessibilityServicePlugin: FlutterPlugin, MethodCallHandler {
   /// The MethodChannel that will the communication between Flutter and native Android
@@ -51,13 +52,7 @@ class AccessibilityServicePlugin: FlutterPlugin, MethodCallHandler {
 
   override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
     when(call.method){
-      "checkStatus"-> {
-        val isAllowed : Int = if(checkPermission()){
-            1
-          }else{
-            0
-          }
-        result.success(isAllowed)}
+      "checkStatus"-> {result.success(checkPermission())}
       "requestPermission"->{var args = call.arguments
       requestToStartService(args,result)}
       "registerCallback"->registerCallback(call.arguments,result)
@@ -75,14 +70,22 @@ class AccessibilityServicePlugin: FlutterPlugin, MethodCallHandler {
     mContext!!.startActivity(intentRequest)
 //    mContext!!.startService(intentServiceTest)
   }
-  private fun checkPermission(): Boolean {
-    var res : Int = mContext!!.checkSelfPermission(Manifest.permission.BIND_ACCESSIBILITY_SERVICE)
-    if(res == PackageManager.PERMISSION_GRANTED){
-      return true
-    }else{
-      Log.d(TAG,"permission denied,please allow it to run this app")
-      return false
-    }
+  private fun checkPermission(): Int {
+      var enabled = 0
+      try {
+          enabled = Settings.Secure.getInt(mContext!!.contentResolver, Settings.Secure.ACCESSIBILITY_ENABLED)
+      } catch (e: Settings.SettingNotFoundException) {
+          return 0
+      }
+      if (enabled == 1) {
+          val name = ComponentName(mContext!!, MyService::class.java)
+          val services = Settings.Secure.getString(mContext!!.contentResolver, Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES)
+          if(services?.contains(name.flattenToString()) == true){
+            return 1
+          }
+          return 0
+      }
+      return 0
   }
   private fun registerCallback(args: Any,result: Result){
     val callbackHandle = args as Long
