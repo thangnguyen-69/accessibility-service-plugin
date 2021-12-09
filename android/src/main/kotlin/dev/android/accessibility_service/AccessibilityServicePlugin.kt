@@ -45,7 +45,7 @@ class AccessibilityServicePlugin: FlutterPlugin, MethodCallHandler {
 
   override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
     mContext = flutterPluginBinding.applicationContext
-    MyService.messenger = flutterPluginBinding.binaryMessenger
+    BackgroundAccessibilityService.messenger = flutterPluginBinding.binaryMessenger
     channel = MethodChannel(flutterPluginBinding.binaryMessenger, "plugin.flutter.io/accessibility_plugin")
     channel.setMethodCallHandler(this)
   }
@@ -78,7 +78,7 @@ class AccessibilityServicePlugin: FlutterPlugin, MethodCallHandler {
           return 0
       }
       if (enabled == 1) {
-          val name = ComponentName(mContext!!, MyService::class.java)
+          val name = ComponentName(mContext!!, BackgroundAccessibilityService::class.java)
           val services = Settings.Secure.getString(mContext!!.contentResolver, Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES)
           if(services?.contains(name.flattenToString()) == true){
             return 1

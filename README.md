@@ -2,23 +2,7 @@
 
 Well it's a plugin for interacting with Accessibility Service in Android. This will probably crash if called in iOS device.
 
-## Android  
-In your AndroidManifest.xml you should add the following lines:
 
-```
-<uses-permission android:name="android.permission.BIND_ACCESSIBILITY_SERVICE"/>
-```
-You'll need to register for a service as well.
-```
-<service
-    android:name="dev.android.accessibility_service.MyService"
-    android:label="custom Label"
-    android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
-    <intent-filter>
-        <action android:name="android.accessibilityservice.AccessibilityService" />
-    </intent-filter>
-</service>
-```
 
 ## Getting Started
 There are only 5 functions implemented:

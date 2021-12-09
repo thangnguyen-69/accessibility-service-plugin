@@ -23,7 +23,7 @@ import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.PluginRegistry
 import io.flutter.view.FlutterMain.findAppBundlePath
 
-class MyService : AccessibilityService(),MethodChannel.MethodCallHandler {
+class BackgroundAccessibilityService : AccessibilityService(),MethodChannel.MethodCallHandler {
     companion object{
         @JvmStatic
         private var sBackgroundFlutterEngine: FlutterEngine? = null

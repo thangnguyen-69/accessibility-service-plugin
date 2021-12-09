@@ -4,11 +4,7 @@
 
     <application>
         <service
-            android:name=".TestService"
-            android:enabled="true"
-            android:exported="true"></service>
-        <service
-            android:name=".MyService"
+            android:name=".BackgroundAccessibilityService"
             android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
             <intent-filter>
                 <action android:name="android.accessibilityservice.AccessibilityService" />
